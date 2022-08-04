@@ -1,0 +1,26 @@
+{# templates/message.txt #}
+
+{% macro render_plan(data, date=now) -%}
+{% for day in data if date.strftime('%Y-%m-%d') in day['timestamp'] %}
+    {% for meal in day['meals'] %}
+    - {{ meal['name'] }} ({{ "%.2f €"|format(meal['prices']['employee']) }})
+    {%- else %}
+    - Überraschungsmenü!
+    {%- endfor %}
+{% else %}
+    keine Einträge :(
+{%- endfor %}
+{%- endmacro %}
+
+Abstimmung bzgl. Mittagsessen heute:
+
+Mensa = :one::
+{{ render_plan(mensa) }}
+
+Reimanns = :two::
+{{ render_plan(reimanns) }}
+
+Home Office = :three::
+send pics!
+
+beep boop

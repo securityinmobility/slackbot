@@ -1,2 +1,3 @@
 slack-sdk
 requests
+Jinja2
