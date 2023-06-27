@@ -16,30 +16,48 @@ class TestSlackbot(unittest.TestCase):
         mensa = json.loads("""
         [
             {
-                "timestamp": "2021-01-17T23:00:00.000Z",
+                "timestamp": "2023-06-27",
                 "meals": [
-                {
-                    "name": "Puten Cordon Bleu mit Zitrone Pommes-Frites",
-                    "prices": {
-                        "student": 3.39,
-                        "employee": 4.39,
-                        "guest": 6.78
-                    },
-                    "allergenes": [
-                    "1",
-                    "4",
-                    "7",
-                    "Wz",
-                    "Mi"
-                    ]
-                }
+                    {
+                        "name": {
+                            "de": "Spargelcremesuppe in der Eintopfschale mit Brötchen",
+                            "en": "Cream of asparagus soup in stew bowl with roll"
+                        },
+                        "category": "Suppe",
+                        "prices": {
+                            "student": 1.6,
+                            "employee": 2.6,
+                            "guest": 3.2
+                        },
+                        "allergens": [
+                            "Wz",
+                            "Mi",
+                            "Sel"
+                        ],
+                        "flags": [
+                            "V"
+                        ],
+                        "nutrition": {
+                            "kj": 352,
+                            "kcal": 84,
+                            "fat": 2.4,
+                            "fatSaturated": 1.5,
+                            "carbs": 11.8,
+                            "sugar": 7.6,
+                            "fiber": 1.7,
+                            "protein": 2.5,
+                            "salt": 2.2
+                        },
+                        "originalLanguage": "de"
+                    }
                 ]
             }
-            ]
+        ]
         """)
         self.assertIn('keine Einträge', self.template.render(mensa = mensa, reimanns = []))
-        self.assertIn('Zitrone', self.template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2021-01-17 10:00:00', '%Y-%m-%d %H:%M:%S')))
-
+        self.assertIn('Spargelcremesuppe', self.template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
+        self.assertIn('Spargelcremesuppe in der Eintopfschale mit Brötchen', self.template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
+        self.assertNotIn('asparagus',  self.template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
 
 if __name__ == '__main__':
     unittest.main()

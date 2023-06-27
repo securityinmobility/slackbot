@@ -3,7 +3,7 @@
 {%- macro render_plan(data, date=now) -%}
     {% for day in data if date.strftime('%Y-%m-%d') in day['timestamp'] -%}
         {% for meal in day['meals'] -%}
-            - {{ meal['name'] }} ({{ "%.2f €"|format(meal['prices']['employee']) }})
+            - {{ meal['name']['de'] }} ({{ "%.2f €"|format(meal['prices']['employee']) if meal['prices']['employee'] is not none else '??' }})
             {%- for flag in (meal['flags'] or []) %} :mensa-{{ flag.lower() }}:{% endfor -%}
             {{ '\n' }}
         {%- else -%}
