@@ -25,4 +25,7 @@ Reimanns = :two::
 Home Office = :three::
 send pics!
 
+Pick up Achim = :man-raising-hand:
+Pick up Patrizia = :woman-raising-hand:
+
 beep boop
