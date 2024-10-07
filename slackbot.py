@@ -5,6 +5,27 @@ from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
 from sinks import slack_sink, teams_sink
 
+API_ENDPOINT = os.environ.get('API_ENDPOINT', 'https://api.neuland.app/graphql')
+
+
+def gql_GetPlan(location: str):
+    QUERY = """
+        query GetPlan($location: String!) {
+        food(locations: [$location]) {
+            foodData {
+            timestamp,
+            meals { name { de, en } category restaurant prices { student, employee, guest } }
+            }
+        }
+        }
+    """
+
+    response = requests.post(
+        API_ENDPOINT,
+        json={"query": QUERY, "variables": {"location": location}},
+    )
+    assert response.status_code == 200
+    return response.json()["data"]
 
 def main():
     sinks = []
@@ -13,15 +34,15 @@ def main():
     if (teams_url := os.environ.get('TEAMS_URL')) is not None:
         sinks.append(partial(teams_sink, url=teams_url))
 
-    mensa = requests.get('https://dev.neuland.app/api/mensa').json()
-    reimanns = requests.get('https://dev.neuland.app/api/reimanns').json()
-
     environment = Environment(loader=FileSystemLoader("templates/"), trim_blocks=True)
     template = environment.get_template("message.txt")
     template.globals['now'] = datetime.now()
-
-    msg = template.render(mensa=mensa, reimanns=reimanns)
+    
     try:
+        mensa = gql_GetPlan(location="IngolstadtMensa")
+        reimanns = gql_GetPlan(location="Reimanns")
+
+        msg = template.render(mensa=mensa, reimanns=reimanns)
         for sink in sinks:
             sink(msg)
     except Exception as e:

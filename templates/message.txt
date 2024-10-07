@@ -17,10 +17,10 @@
 Abstimmung bzgl. Mittagsessen heute:
 
 Mensa = :one::
-{{ render_plan(mensa) }}
+{{ render_plan(mensa["food"]["foodData"]) }}
 
 Reimanns = :two::
-{{ render_plan(reimanns) }}
+{{ render_plan(reimanns["food"]["foodData"]) }}
 
 Home Office = :three::
 send pics!
