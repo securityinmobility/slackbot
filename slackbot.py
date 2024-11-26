@@ -10,7 +10,7 @@ API_ENDPOINT = os.environ.get('API_ENDPOINT', 'https://api.neuland.app/graphql')
 
 def gql_GetPlan(location: str):
     QUERY = """
-        query GetPlan($location: String!) {
+        query GetPlan($location: LocationInput!) {
         food(locations: [$location]) {
             foodData {
             timestamp,
@@ -25,7 +25,7 @@ def gql_GetPlan(location: str):
         json={"query": QUERY, "variables": {"location": location}},
     )
     assert response.status_code == 200
-    return response.json()["data"]
+    return response.json()["data"]["food"]["foodData"]
 
 def main():
     sinks = []
