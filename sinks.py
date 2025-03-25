@@ -10,11 +10,8 @@ def slack_sink(message, channel, token):
     return response
 
 def teams_sink(message, url):
-    payload = {
-        "text": message
-    }
     request = req.Request(url=url, method="POST")
     request.add_header(key="Content-Type", val="application/json")
-    with req.urlopen(url=request, data=json.dumps(payload).encode()) as response:
+    with req.urlopen(url=request, data=message) as response:
         if response.status != 200:
             raise Exception(response.reason)

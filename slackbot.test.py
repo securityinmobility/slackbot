@@ -6,13 +6,14 @@ from datetime import datetime
 class TestSlackbot(unittest.TestCase):
     def setUp(self):
         self.environment = Environment(loader=FileSystemLoader("templates/"), trim_blocks=True)
-        self.template = self.environment.get_template("message.txt")
-        self.template.globals['now'] = datetime.now()
+        self.environment.globals["now"] = datetime.now()
 
     def test_empty(self):
-        self.assertIn("keine Einträge", self.template.render(mensa = [], reimanns = []))
+        template = self.environment.get_template("slack.j2")
+        self.assertIn("keine Einträge", template.render(mensa = [], reimanns = []))
 
     def test_date_filter(self):
+        template = self.environment.get_template("slack.j2")
         mensa = json.loads("""
         [
             {
@@ -54,10 +55,20 @@ class TestSlackbot(unittest.TestCase):
             }
         ]
         """)
-        self.assertIn('keine Einträge', self.template.render(mensa = mensa, reimanns = []))
-        self.assertIn('Spargelcremesuppe', self.template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
-        self.assertIn('Spargelcremesuppe in der Eintopfschale mit Brötchen', self.template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
-        self.assertNotIn('asparagus',  self.template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
+        self.assertIn('keine Einträge', template.render(mensa = mensa, reimanns = []))
+        self.assertIn('Spargelcremesuppe', template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
+        self.assertIn('Spargelcremesuppe in der Eintopfschale mit Brötchen', template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
+        self.assertNotIn('asparagus',  template.render(mensa = mensa, reimanns = [], now=datetime.strptime('2023-06-27 10:00:00', '%Y-%m-%d %H:%M:%S')))
+
+    def test_teams_render(self):
+        template = self.environment.get_template("teams.j2")
+        payload = template.render(mensa = [], reimanns = [])
+        self.assertIn("keine Einträge", payload)
+        try:
+            json.loads(payload)
+        except ValueError:
+            self.fail("Invalid JSON")
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,4 @@
-{# templates/message.txt #}
+{# templates/slack.j2 #}
 
 {%- macro render_plan(data, date=now) -%}
     {% for day in data if date.strftime('%Y-%m-%d') in day['timestamp'] -%}

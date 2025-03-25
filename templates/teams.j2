@@ -1,0 +1,138 @@
+{# templates/teams.j2 #}
+
+{%- macro render_plan(data, date=now) -%}
+    {% for day in data if date.strftime('%Y-%m-%d') in day['timestamp'] -%}
+        {% for meal in day['meals'] -%}
+            - {{ meal['name']['de'] }} ({{ "%.2f €"|format(meal['prices']['employee']) if meal['prices']['employee'] is not none else '??' }})
+            {%- for flag in (meal['flags'] or []) %} :mensa-{{ flag.lower() }}:{% endfor -%}
+            {{ '\n' }}
+        {%- else -%}
+            - Überraschungsmenü!
+        {%- endfor %}
+    {%- else -%}
+        keine Einträge :(
+    {%- endfor %}
+{%- endmacro -%}
+{%- set text -%}
+Abstimmung bzgl. Mittagsessen heute:
+
+Mensa = :one::
+{{ render_plan(mensa) }}
+
+Reimanns = :two::
+{{ render_plan(reimanns) }}
+
+Home Office = :three::
+send pics!
+
+Pick up Achim = :man-raising-hand:
+Pick up Patrizia = :woman-raising-hand:
+
+beep boop
+{%- endset -%}
+
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.0",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "padding": "None",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "Mittagessen-Bot",
+                            "wrap": true
+                        }
+                    ],
+                    "verticalContentAlignment": "Center"
+                },
+                {
+                    "type": "Column",
+                    "padding": "None",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://www.werkswelt.de/data/uploads/newsmanager/2024/spengler.png",
+                            "size": "Small"
+                        }
+                    ],
+                    "horizontalAlignment": "Right"
+                }
+            ],
+            "padding": {
+                "top": "Small",
+                "bottom": "Small",
+                "left": "Default",
+                "right": "Small"
+            },
+            "style": "emphasis"
+        },
+        {
+            "type": "Container",
+            "padding": "Default",
+            "spacing": "None",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "{{ now }}",
+                    "wrap": true,
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "style": "heading"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "{{ text | replace("\n", "\\n") }}",
+                    "wrap": true
+                },
+                {
+                    "type": "Input.Toggle",
+                    "title": "Pick up Achim",
+                    "value": "false",
+                    "wrap": false
+                },
+                {
+                    "type": "Input.Toggle",
+                    "title": "Pick up Thomas",
+                    "value": "false",
+                    "wrap": false
+                },
+                {
+                    "type": "Input.Toggle",
+                    "title": "Pick up Patrizia",
+                    "value": "false",
+                    "wrap": false
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "padding": {
+                "top": "Small",
+                "bottom": "Small",
+                "left": "Small",
+                "right": "Default"
+            },
+            "spacing": "None",
+            "separator": true,
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "[View in portal](https://www.werkswelt.de/?id=ingo)",
+                    "wrap": true,
+                    "color": "Accent",
+                    "horizontalAlignment": "Right"
+                }
+            ],
+            "horizontalAlignment": "Right"
+        }
+    ],
+    "padding": "None"
+}
