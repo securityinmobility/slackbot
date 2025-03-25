@@ -38,14 +38,17 @@ beep boop
     "body": [
         {
             "type": "ColumnSet",
+            "id": "1ede2aba-61b9-faa0-9895-9ed0c26b2e6f",
             "columns": [
                 {
                     "type": "Column",
+                    "id": "e5756242-0963-37a2-7cb4-4397886d60bb",
                     "padding": "None",
                     "width": "stretch",
                     "items": [
                         {
                             "type": "TextBlock",
+                            "id": "20f3833e-0435-5c87-fad1-b528e0046fb6",
                             "text": "Mittagessen-Bot",
                             "wrap": true
                         }
@@ -54,11 +57,13 @@ beep boop
                 },
                 {
                     "type": "Column",
+                    "id": "74215a26-fa8b-e549-cced-7f99fd34a661",
                     "padding": "None",
                     "width": "auto",
                     "items": [
                         {
                             "type": "Image",
+                            "id": "795047e2-e63e-6e14-07ba-5a3e13323dff",
                             "url": "https://www.werkswelt.de/data/uploads/newsmanager/2024/spengler.png",
                             "size": "Small"
                         }
@@ -76,11 +81,13 @@ beep boop
         },
         {
             "type": "Container",
+            "id": "fbcee869-2754-287d-bb37-145a4ccd750b",
             "padding": "Default",
             "spacing": "None",
             "items": [
                 {
                     "type": "TextBlock",
+                    "id": "44906797-222f-9fe2-0b7a-e3ee21c6e380",
                     "text": "{{ now }}",
                     "wrap": true,
                     "weight": "Bolder",
@@ -89,23 +96,27 @@ beep boop
                 },
                 {
                     "type": "TextBlock",
-                    "text": "{{ text | replace("\n", "\\n") }}",
+                    "id": "f7abdf1a-3cce-2159-28ef-f2f362ec937e",
+                    "text": {{ text | tojson }},
                     "wrap": true
                 },
                 {
                     "type": "Input.Toggle",
+                    "id": "fbfff852-b9dd-8141-e61c-a9211cd45378",
                     "title": "Pick up Achim",
                     "value": "false",
                     "wrap": false
                 },
                 {
                     "type": "Input.Toggle",
+                    "id": "b1281dde-beb3-ad80-89f4-43fa8536f7cd",
                     "title": "Pick up Thomas",
                     "value": "false",
                     "wrap": false
                 },
                 {
                     "type": "Input.Toggle",
+                    "id": "92b27a1c-3505-2b38-afe2-bd409437e7e8",
                     "title": "Pick up Patrizia",
                     "value": "false",
                     "wrap": false
@@ -114,6 +125,7 @@ beep boop
         },
         {
             "type": "Container",
+            "id": "77102c5d-fde2-e573-4ea5-66022d646d64",
             "padding": {
                 "top": "Small",
                 "bottom": "Small",
@@ -125,6 +137,7 @@ beep boop
             "items": [
                 {
                     "type": "TextBlock",
+                    "id": "42654e7e-cece-b419-867a-3e3ef4076870",
                     "text": "[View in portal](https://www.werkswelt.de/?id=ingo)",
                     "wrap": true,
                     "color": "Accent",

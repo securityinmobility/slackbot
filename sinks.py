@@ -16,12 +16,13 @@ def teams_sink(message, url):
         "attachments": [
             {
                 "contentType": "application/vnd.microsoft.card.adaptive",
+                "contentUrl": None,
                 "content": json.loads(message),
             }
         ]
     }
     request = req.Request(url=url, method="POST")
     request.add_header(key="Content-Type", val="application/json")
-    with req.urlopen(url=request, data=json.dumps(message).encode()) as response:
+    with req.urlopen(url=request, data=json.dumps(payload).encode()) as response:
         if response.status != 200:
             raise Exception(response.reason)
