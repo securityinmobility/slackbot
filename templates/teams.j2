@@ -1,32 +1,32 @@
 {# templates/teams.j2 #}
 
-{%- macro render_plan(data, date=now) -%}
-    {% for day in data if date.strftime('%Y-%m-%d') in day['timestamp'] -%}
-        {% for meal in day['meals'] -%}
-            - {{ meal['name']['de'] }} ({{ "%.2f € | "|format(meal['prices']['student']) if meal['prices']['student'] is not none}}{{ "%.2f €"|format(meal['prices']['employee']) if meal['prices']['employee'] is not none else '??' }})
-            {%- for flag in (meal['flags'] or []) %} :mensa-{{ flag.lower() }}:{% endfor -%}
-            {{ '\n' }}
-        {%- else -%}
-            - Überraschungsmenü!
-        {%- endfor %}
+{%- macro render_plan(meals) -%}
+    {%- set diet = {'veg': '🌱', 'V': '🥕'} -%}
+    {% for meal in meals -%}
+        - {{ meal['name']['de'] }} ({{ "%.2f € | "|format(meal['prices']['student']) if meal['prices']['student'] is not none}}{{ "%.2f €"|format(meal['prices']['employee']) if meal['prices']['employee'] is not none else '??' }})
+        {%- for flag in (meal['flags'] or []) if flag in diet %} {{ diet[flag] }}{% endfor -%}
+        {{ '\n' }}
     {%- else -%}
         keine Einträge :(
     {%- endfor %}
 {%- endmacro -%}
 {%- set text -%}
-Abstimmung bzgl. Mittagsessen heute:
+Abstimmung bzgl. Mittagsessen heute, per Reaktion auf diese Nachricht:
 
-Mensa = :one::
+Mensa = 1️⃣
 {{ render_plan(mensa) }}
 
-Reimanns = :two::
+Reimanns = 2️⃣
 {{ render_plan(reimanns) }}
 
-Home Office = :three::
+Home Office = 3️⃣
 send pics!
 
-Pick up Achim = :man-raising-hand:
-Pick up Patrizia = :woman-raising-hand:
+Pick up Achim = 🙋‍♂️
+Pick up Thomas = 🙆‍♂️
+Pick up Patrizia = 🙋‍♀️
+
+Preise: Studierende | Mitarbeitende · 🌱 vegan · 🥕 vegetarisch
 
 beep boop
 {%- endset -%}
@@ -88,7 +88,7 @@ beep boop
                 {
                     "type": "TextBlock",
                     "id": "44906797-222f-9fe2-0b7a-e3ee21c6e380",
-                    "text": "{{ now }}",
+                    "text": "{{ today | date_de }}",
                     "wrap": true,
                     "weight": "Bolder",
                     "size": "Large",
@@ -99,27 +99,6 @@ beep boop
                     "id": "f7abdf1a-3cce-2159-28ef-f2f362ec937e",
                     "text": {{ text | tojson }},
                     "wrap": true
-                },
-                {
-                    "type": "Input.Toggle",
-                    "id": "fbfff852-b9dd-8141-e61c-a9211cd45378",
-                    "title": "Pick up Achim",
-                    "value": "false",
-                    "wrap": false
-                },
-                {
-                    "type": "Input.Toggle",
-                    "id": "b1281dde-beb3-ad80-89f4-43fa8536f7cd",
-                    "title": "Pick up Thomas",
-                    "value": "false",
-                    "wrap": false
-                },
-                {
-                    "type": "Input.Toggle",
-                    "id": "92b27a1c-3505-2b38-afe2-bd409437e7e8",
-                    "title": "Pick up Patrizia",
-                    "value": "false",
-                    "wrap": false
                 }
             ]
         },
