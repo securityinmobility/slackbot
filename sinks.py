@@ -23,6 +23,7 @@ def teams_sink(message, url):
     }
     request = req.Request(url=url, method="POST")
     request.add_header(key="Content-Type", val="application/json")
-    with req.urlopen(url=request, data=json.dumps(payload).encode()) as response:
-        if response.status != 200:
-            raise Exception(response.reason)
+    # Teams Workflow webhooks answer 202 Accepted, so any 2xx counts as success.
+    with req.urlopen(url=request, data=json.dumps(payload).encode(), timeout=30) as response:
+        if not 200 <= response.status < 300:
+            raise Exception(f"{response.status} {response.reason}")
