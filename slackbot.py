@@ -7,6 +7,7 @@ from zoneinfo import ZoneInfo
 from jinja2 import Environment, FileSystemLoader
 from sinks import slack_sink, teams_sink
 from types import SimpleNamespace
+import werkswelt
 
 API_ENDPOINT = os.environ.get("API_ENDPOINT", "https://api.neuland.app/graphql")
 TIMEZONE = ZoneInfo("Europe/Berlin")
@@ -86,7 +87,11 @@ def main():
             )
         )
 
-    mensa = meals_for_day(gql_GetPlan(location="IngolstadtMensa"), today)
+    try:
+        mensa = werkswelt.mensa_meals(today)
+    except Exception as e:
+        print(f"Warning: werkswelt failed ({e}), using Neuland for the Mensa", file=sys.stderr)
+        mensa = meals_for_day(gql_GetPlan(location="IngolstadtMensa"), today)
     reimanns = meals_for_day(gql_GetPlan(location="Reimanns"), today)
     if not mensa and not reimanns:
         print(f"No menu for {today.isoformat()}, nothing posted.")
