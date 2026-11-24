@@ -7,9 +7,16 @@ from jinja2 import Environment, FileSystemLoader
 
 import sinks
 import slackbot
+import werkswelt
 from slackbot import TIMEZONE, format_date_de, gql_GetPlan, meals_for_day
 
 DAY = date(2026, 11, 13)
+WERKSWELT_DAY = date(2026, 11, 24)  # date of the werkswelt fixtures in test_data/
+
+
+def fixture(lang):
+    with open(os.path.join("test_data", f"werkswelt_ingo_{lang}.html"), encoding="utf-8") as f:
+        return f.read()
 
 
 def meal(name, static=False, flags=None, student=2.5, employee=3.5):
@@ -93,6 +100,62 @@ class TestTemplates(unittest.TestCase):
         card = json.loads(self.environment.get_template("teams.j2").render(mensa=[], reimanns=[]))
         self.assertIn("keine Einträge", card["body"][1]["items"][1]["text"])
 
+    def test_teams_english_line_only_if_different(self):
+        meals = [meal("Gemüsecurry", flags=["veg"]), meal("Lasagne Bolognese")]
+        meals[0]["name"]["en"] = "Vegetable curry"
+        card = json.loads(self.environment.get_template("teams.j2").render(mensa=meals, reimanns=[]))
+        text = card["body"][1]["items"][1]["text"]
+        self.assertIn("- Gemüsecurry (2.50 € | 3.50 €) 🌱\n  _Vegetable curry_\n", text)
+        self.assertIn("- Lasagne Bolognese (2.50 € | 3.50 €)\n", text)
+        self.assertNotIn("_Lasagne Bolognese_", text)
+
+
+class TestWerkswelt(unittest.TestCase):
+    def test_parse_german_page(self):
+        day, meals = werkswelt.parse_menu(fixture("de"))
+        self.assertEqual(day, WERKSWELT_DAY)
+        self.assertEqual([m["name"] for m in meals], [
+            "Kartoffelsuppe in der Eintopfschale mit Brötchen",
+            "Kartoffelsuppe",
+            "Lasagne Bolognese",
+            "Rote Bete Puffer mit Apfel-Senf Dip",
+            "Gemüsecurry mit Sojawürfeln und Reis",
+            "Mais Nuggets mit Barbecue Dip und Coleslaw",
+        ])
+        self.assertEqual(meals[0]["prices"], {"student": 1.6, "employee": 2.6})
+        self.assertEqual([m["flags"] for m in meals], [["V"], ["V"], ["R"], ["veg"], ["veg"], ["veg"]])
+
+    def test_mensa_meals_pairs_languages(self):
+        with mock.patch("werkswelt._fetch", side_effect=fixture):
+            meals = werkswelt.mensa_meals(WERKSWELT_DAY)
+        self.assertEqual(meals[4]["name"], {"de": "Gemüsecurry mit Sojawürfeln und Reis",
+                                            "en": "Vegetable curry with diced soy chunks and rice"})
+        self.assertEqual(meals[2]["name"], {"de": "Lasagne Bolognese", "en": "Lasagne Bolognese"})
+        self.assertEqual(meals[3]["prices"], {"student": 2.48, "employee": 3.68})
+
+    def test_other_day_raises(self):
+        with mock.patch("werkswelt._fetch", side_effect=fixture):
+            with self.assertRaises(ValueError):
+                werkswelt.mensa_meals(date(2026, 11, 25))
+
+    def test_changed_layout_raises(self):
+        with mock.patch("werkswelt._fetch", return_value="<html><body>Wartungsarbeiten</body></html>"):
+            with self.assertRaises(ValueError):
+                werkswelt.mensa_meals(WERKSWELT_DAY)
+
+    def test_english_mismatch_keeps_german(self):
+        pages = {"de": fixture("de"), "en": fixture("en").replace("1,60&nbsp;€", "1,70&nbsp;€")}
+        with mock.patch("werkswelt._fetch", side_effect=pages.get), mock.patch("sys.stderr") as stderr:
+            meals = werkswelt.mensa_meals(WERKSWELT_DAY)
+        self.assertTrue(all(m["name"]["en"] == m["name"]["de"] for m in meals))
+        self.assertTrue(stderr.write.called)
+
+    @unittest.skipUnless(os.environ.get("RUN_LIVE_API_TESTS") == "1", "set RUN_LIVE_API_TESTS=1 to fetch the live werkswelt page")
+    def test_live_page(self):
+        for lang in ("de", "en"):
+            _, meals = werkswelt.parse_menu(werkswelt._fetch(lang))
+            self.assertIsInstance(meals, list)
+
 
 class TestGraphQL(unittest.TestCase):
     def test_graphql_errors_raise(self):
@@ -113,26 +176,47 @@ class TestGraphQL(unittest.TestCase):
 
 
 class TestMain(unittest.TestCase):
-    def run_main(self, plan, sink_error=None):
+    def run_main(self, plan, sink_error=None, werkswelt_meals=None):
+        """Run main() offline. Without werkswelt_meals, werkswelt fails and the Mensa falls back to Neuland."""
+        if werkswelt_meals is None:
+            werkswelt_patch = mock.patch("slackbot.werkswelt.mensa_meals", side_effect=RuntimeError("offline"))
+        else:
+            werkswelt_patch = mock.patch("slackbot.werkswelt.mensa_meals", return_value=werkswelt_meals)
         with mock.patch.dict(os.environ, {"TEAMS_URL": "https://example.invalid/webhook"}, clear=True), \
-                mock.patch("slackbot.gql_GetPlan", return_value=plan), \
-                mock.patch("slackbot.teams_sink", side_effect=sink_error) as teams_sink:
-            return slackbot.main(), teams_sink
+                mock.patch("slackbot.gql_GetPlan", return_value=plan) as gql, werkswelt_patch, \
+                mock.patch("slackbot.teams_sink", side_effect=sink_error) as teams_sink, \
+                mock.patch("sys.stderr"):
+            return slackbot.main(), teams_sink, gql
 
     def test_posts_today(self):
-        exit_code, teams_sink = self.run_main(plan_for(datetime.now(TIMEZONE).date()))
+        exit_code, teams_sink, _ = self.run_main(plan_for(datetime.now(TIMEZONE).date()))
         self.assertEqual(exit_code, 0)
         teams_sink.assert_called_once()
         json.loads(teams_sink.call_args.args[0])
 
     def test_no_menu_posts_nothing(self):
-        exit_code, teams_sink = self.run_main([])
+        exit_code, teams_sink, _ = self.run_main([])
         self.assertEqual(exit_code, 0)
         teams_sink.assert_not_called()
 
     def test_sink_failure_exit_code(self):
-        exit_code, _ = self.run_main(plan_for(datetime.now(TIMEZONE).date()), sink_error=Exception("down"))
+        exit_code, _, _ = self.run_main(plan_for(datetime.now(TIMEZONE).date()), sink_error=Exception("down"))
         self.assertEqual(exit_code, 1)
+
+    def test_uses_werkswelt_for_mensa(self):
+        mensa = [{"name": {"de": "Gemüsecurry", "en": "Vegetable curry"},
+                  "prices": {"student": 2.46, "employee": 4.57}, "flags": ["veg"]}]
+        exit_code, teams_sink, gql = self.run_main(plan_for(datetime.now(TIMEZONE).date()), werkswelt_meals=mensa)
+        self.assertEqual(exit_code, 0)
+        gql.assert_called_once_with(location="Reimanns")
+        text = json.loads(teams_sink.call_args.args[0])["body"][1]["items"][1]["text"]
+        self.assertIn("- Gemüsecurry (2.46 € | 4.57 €) 🌱\n  _Vegetable curry_\n", text)
+
+    def test_werkswelt_failure_falls_back_to_neuland(self):
+        exit_code, teams_sink, gql = self.run_main(plan_for(datetime.now(TIMEZONE).date()))
+        self.assertEqual(exit_code, 0)
+        self.assertEqual([c.kwargs["location"] for c in gql.call_args_list], ["IngolstadtMensa", "Reimanns"])
+        teams_sink.assert_called_once()
 
 
 class TestTeamsSink(unittest.TestCase):

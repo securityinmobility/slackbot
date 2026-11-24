@@ -5,13 +5,14 @@
     {% for meal in meals -%}
         - {{ meal['name']['de'] }} ({{ "%.2f € | "|format(meal['prices']['student']) if meal['prices']['student'] is not none}}{{ "%.2f €"|format(meal['prices']['employee']) if meal['prices']['employee'] is not none else '??' }})
         {%- for flag in (meal['flags'] or []) if flag in diet %} {{ diet[flag] }}{% endfor -%}
+        {%- if meal['name']['en'] and meal['name']['en'] != meal['name']['de'] %}{{ '\n' }}  _{{ meal['name']['en'] }}_{% endif -%}
         {{ '\n' }}
     {%- else -%}
-        keine Einträge :(
+        keine Einträge / no entries :(
     {%- endfor %}
 {%- endmacro -%}
 {%- set text -%}
-Abstimmung bzgl. Mittagsessen heute, per Reaktion auf diese Nachricht:
+Abstimmung bzgl. Mittagsessen heute, per Reaktion auf diese Nachricht / Vote for today's lunch by reacting to this message:
 
 Mensa = 1️⃣
 {{ render_plan(mensa) }}
@@ -26,7 +27,7 @@ Pick up Achim = 🙋‍♂️
 Pick up Thomas = 🙆‍♂️
 Pick up Patrizia = 🙋‍♀️
 
-Preise: Studierende | Mitarbeitende · 🌱 vegan · 🥕 vegetarisch
+Preise/Prices: Studierende/students | Mitarbeitende/employees · 🌱 vegan · 🥕 vegetarisch/vegetarian
 
 beep boop
 {%- endset -%}
