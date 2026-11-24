@@ -29,7 +29,7 @@ systemd user timer (uni server, Mon–Fri 10:45 Europe/Berlin)
 | `templates/teams.j2` | Adaptive Card (version 1.0). The menu, voting legend and price legend are a single TextBlock; the labels are German/English. |
 | `templates/slack.j2` | Slack text with Slack emoji codes (`:one:`, `:mensa-veg:` …). German names only. |
 | `test_slackbot.py` | Offline unit tests. |
-| `test_data/werkswelt_ingo_{de,en}.html` | werkswelt menu pages from 2026-11-24, used as test fixtures. |
+| `test_data/werkswelt_ingo_{de,en}.html` | Raw werkswelt server responses from 2026-11-24 (staff email redacted), used as test fixtures. |
 
 ### Data sources
 
@@ -39,7 +39,7 @@ Both sources deliver meals in the same shape (`name.de`, `name.en`, `prices.stud
 
 [werkswelt.de/?id=ingo](https://www.werkswelt.de/index.php?id=ingo) is the canteen operator's own menu page and the original source; Neuland gets its Mensa data from the same system. It has no feed or API, so `werkswelt.py` scrapes two HTML pages per run, `setlang=de` and `setlang=en`. `robots.txt` only disallows `/admin/`.
 
-- The page shows **today only**: `Speiseplan <br><h4>Dienstag 24.11.2026</h4>` followed by one block per dish, separated by `<br> <br>`. Each block is a label (`Suppe`, `Essen 1` …), the name with allergen marks in `<sup>[Wz,Mi]</sup>` (removed), the prices `1,60 € (Stud.) 2,60 € (Bed.) 3,20 € (Gäste)`, and diet icons `<img class="infomax-food-icon veg">`. Extra lines after the prices, like "Optional: Reis", are ignored.
+- The page shows **today only**: `Speiseplan <br><h4>Dienstag 24.11.2026</h4>` followed by one block per dish, separated by `</br> </br>`. The server writes line breaks mostly as the invalid `</br>`, which browsers turn into `<br>`, so the parser accepts `<br>`, `<br />` and `</br>`; always take fixtures from the raw response, not from the browser DOM. Each block is a label (`Suppe`, `Essen 1` …), the name with allergen marks in `<sup>[Wz,Mi]</sup>` (removed), the prices `1,60 € (Stud.) 2,60 € (Bed.) 3,20 € (Gäste)`, and diet icons `<img class="infomax-food-icon veg">`. Extra lines after the prices, like "Optional: Reis", are ignored.
 - `Stud.` → `prices.student`, `Bed.` (Bedienstete) → `prices.employee`. The icon class is used as the flag: `veg` vegan, `V` vegetarian, `R` beef, `S` pork, … (the same codes as Neuland).
 - German and English dishes are paired by position. The prices must match on both pages; otherwise the English names are dropped with a warning.
 - **Fallback:** if the German page can't be fetched, has no menu section, shows another date than today, or yields no dishes, `main()` prints a warning and uses Neuland's `IngolstadtMensa` instead. That data has German names only, because Neuland's `name.en` equals `name.de` for the Mensa.
@@ -194,4 +194,4 @@ RUN_LIVE_API_TESTS=1 python -m unittest -v
 - On some days Reimanns lists items like "Tagessuppe" or "Süßspeise" as `main` with the full price (6,90 €). They come from the API like that and are shown as delivered.
 - English names: the card shows `name.de` and adds `name.en` in italics on the next line only if it differs. Neuland's Mensa `name.en` is the German name (checked 2026-11-13 and 2026-11-23), which is why the Mensa comes from werkswelt.
 - werkswelt's English text is the canteen's own translation and sometimes imperfect ("Potatosoup in stew pot", "crunchy beetroot buffer"). It's shown as delivered.
-- The werkswelt fixtures were taken from the browser DOM, not the raw server response. If the live page parses differently, the bot falls back to Neuland and logs `Warning: werkswelt failed (…)`; check with `RUN_LIVE_API_TESTS=1`.
+- If the live werkswelt page parses differently (layout change), the bot falls back to Neuland and logs `Warning: werkswelt failed (…)`; check with `RUN_LIVE_API_TESTS=1`, which fails when the page lists prices but no meal is parsed.

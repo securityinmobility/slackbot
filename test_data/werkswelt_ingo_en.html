@@ -1,25 +1,631 @@
 <!DOCTYPE html>
-<!-- Test fixture: menu <div> of https://www.werkswelt.de/index.php?id=ingo&setlang=en on 2026-11-24, taken from the
-     browser DOM. Nutrition <details> shortened. -->
-<html lang="en"><head><meta charset="utf-8"><title>Mensa Ingolstadt (en) » Studierendenwerk Erlangen-Nürnberg</title></head>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Get page title : Defined in functions.php -->
+  <title>Mensa Ingolstadt (en) &raquo Studierendenwerk Erlangen-Nürnberg</title>
+  
+  <!-- Bootstrap Core CSS -->
+   <!--
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  -->
+  <link href="https://www.werkswelt.de/theme/PureBootstrap/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://www.werkswelt.de/theme/PureBootstrap/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  
+  <!-- Add custom CSS here -->
+  <link href="https://www.werkswelt.de/theme/PureBootstrap/assets/css/custom.css" rel="stylesheet">
+  
+  <!-- Bootswatch Theme : Change this to your choice of theme -->
+  <!-- Visit http://bootswatch.com/ to preview the themes available -->
+  <!-- <link href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="https://www.werkswelt.de/theme/PureBootstrap/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- HTML5 Compatibility for Internet Explorer < 9 -->
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]--> 
+	
+  <!-- PNG Transparency Fix for Internet Explorer < 7 -->
+	<!--[if lt IE 7 ]>
+    <script src="https://www.werkswelt.de/theme/PureBootstrap/assets/js/dd_belatedpng.js"></script>
+    <script> DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images </script>
+  <![endif]-->
+  
+  
+
+ 
+   <!-- JQUERY NEU -->
+   
+  <meta name="keywords" content="getsimple, easy, content management system" />
+<link rel="canonical" href="https://www.werkswelt.de/" />
+    <script type="text/javascript" src="https://www.werkswelt.de/plugins/i18n_gallery/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="https://www.werkswelt.de/plugins/i18n_gallery/js/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="https://www.werkswelt.de/plugins/i18n_gallery/js/jquery.prettyPhoto.js"></script>
+    <link rel="stylesheet" href="https://www.werkswelt.de/plugins/i18n_gallery/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+  
+  
+    
+  <!-- include Google Feed API -->
+<!--  <script type="text/javascript" src="https://www.google.com/jsapi"></script> -->
+
+  
+  <!-- HEADER Plugin Hook -->
+    
+  <link rel="canonical" href="https://www.werkswelt.de/index.php?id=ingo" />
+	<link href="//www.werkswelt.de/admin/template/js/fancybox/jquery.fancybox.css?v=2.0.4" rel="stylesheet" media="screen">
+	<script src="//www.werkswelt.de/admin/template/js/fancybox/jquery.fancybox.pack.js?v=2.0.4"></script>
+	<script src="https://www.werkswelt.de/plugins/FancyBoxPlugin/js/FancyBoxConfig.js?v=1.1"></script>
+<link href="https://www.werkswelt.de/plugins/cbcontact/form/cbcontact.css" rel="stylesheet" type="text/css" />    <script type="text/javascript" src="https://www.werkswelt.de/plugins/i18n_gallery/js/jquery.nivo.slider.pack.js"></script>
+ 
+  <link rel="stylesheet" href="https://www.werkswelt.de/plugins/i18n_gallery/css/nivo-slider-default.css"/>
+  <link rel="stylesheet" href="https://www.werkswelt.de/plugins/i18n_gallery/css/nivo-slider.css"/>
+  
+  <style>
+    /* The Nivo Slider styles (essential)*/
+    .nivoSlider { position:relative; width:100%; overflow: hidden; }
+    .nivoSlider img { position:absolute; top:0px; left:0px; max-width: none;}
+    .nivo-main-image { display: block !important; position: relative !important; width: 100% !important; }
+
+    /* If an image is wrapped in a link */
+    .nivoSlider a.nivo-imageLink {
+      position:absolute;
+      top:0px;
+      left:0px;
+      width:100%;
+      height:100%;
+      border:0;
+      padding:0;
+      margin:0;
+      z-index:6;
+      display:none;
+      background:white; 
+      filter:alpha(opacity=0); 
+      opacity:0;
+    }
+    /* The slices and boxes in the Slider */
+    .nivo-slice { display:block; position:absolute; z-index:5; height:100%; top:0; }
+    .nivo-box { display:block; position:absolute; z-index:5; overflow:hidden; }
+    .nivo-box img { display:block; }
+    
+    /* other fixes */
+    .nivo-directionNav a {z-index:9;}
+  </style>
+  <script type="text/javascript">
+  $(window).load(function() {
+    $('#nivoSlider-hg-mensa-ingolstadt').nivoSlider({
+          effect: 'slideInLeft',               
+          slices: 15,    
+          boxCols: 8,                     
+          boxRows: 4,
+          
+          manualAdvance: false,
+          pauseTime: 7000,
+          pauseOnHover: false,             
+          animSpeed: 500,
+          
+          startSlide: 0,       
+          randomStart: false,
+          
+          directionNav: true, 
+          prevText: 'Prev', 
+          nextText: 'Next',
+          controlNav: false, 
+          controlNavThumbs: false,
+          
+          beforeChange: function() {          },
+          afterChange: function() {          },
+          slideshowEnd: function() {          },
+          lastSlide: function() {          },
+          afterLoad: function() {          }
+          })
+    });
+  </script>  
+  
+  
+   
+  
+  
+  <!-- Favicons: -->
+  
+  <link rel="shortcut icon" href="favicon.ico">
+ 
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ff0000">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+  
+  
+</head>
+
+
+
 <body id="ingo">
-<div class="container"><div class="row">
-<div class="col-md-7 col-sm-7">
-<div style="background-color:#ecf0f1;border-radius: 4px 4px 0px 0px; padding: 8px;" "="">
+
+
+  <!-- CSS code from Bootply.com editor / Sorgt dafür, dass die Navbar zum richtigen Breaking point "collapsed" -->
+        
+        <style type="text/css">
+            @media (max-width: 991px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in { 
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
+}
+        </style>
+
+
+		
+<!-- Unsichtbarer Link, den aber Screenreader vorlesen, mit dem sich die Navigation überspringen und gleich auf den Hauptteil der Seite wechseln lässt (mittlere Spalte) -->
+<p class="unsichtbar"><a href="#inhalt">Navigation überspringen</a></p>
+		
+
+	  
+	  
+  <!-- START Navigation -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+	  
+<!-- Logo, das bei Viewport xs angezeigt wird:-->
+	   <!-- <div class="visible-xs" align="left"><a href="?id=index"><img src="data/uploads/logo-mobile.jpg" width="160px" title="Logo des Studentenwerks Erlangen-Nürnberg" style="float: left;PADDING-TOP: 5px ;PADDING-LEFT: 13px ; padding-bottom: 0px" ></img></a>
+      </div> -->
+	  
+	  <!-- Logo-Variante 100 Jahre -->
+	  <div class="visible-xs" align="left"><a href="?id=index"><img src="data/uploads/logo-mobile.jpg" width="312px" title="Logo des Studentenwerks Erlangen-Nürnberg" style="float: left;PADDING-TOP: 5px ;PADDING-LEFT: 13px ; padding-bottom: 0px" ></img></a>
+      </div>
+	  
+	  <!-- ENDE Logo-->
+	  
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+           
+      </div>
+      
+      <!-- Get navigation items : Defined in functions.php -->
+      <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <ul class="nav navbar-nav">
+          <li class="index"><a href="https://www.werkswelt.de/">Start</a></li><li class="gastronomie dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Gastronomy (en)<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://www.werkswelt.de/index.php?id=gastronomie">Gastronomy (en)</a></li><li class="divider"></li><li><a href="https://www.werkswelt.de/index.php?id=mensen-cafeterien-cafebars">Refectories, Cafeterias &#38; Cafebars (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=kartensystem">Cashless payment system (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=nachhaltigkeit">Unsere Grundsätze</a></li><li><a href="https://www.werkswelt.de/index.php?id=gruenwerk">GrünWerk</a></li><li><a href="https://www.werkswelt.de/index.php?id=mensavital">MensaVital</a></li><li><a href="https://www.werkswelt.de/index.php?id=veranstaltungen">Veranstaltungsservice</a></li><li><a href="https://www.werkswelt.de/index.php?id=ausschreibungen">Ausschreibungen</a></li><li><a href="https://www.werkswelt.de/index.php?id=kontakt">Kontakt</a></li></ul></li><li class="wohnen dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Housing<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://www.werkswelt.de/index.php?id=wohnen">Housing</a></li><li class="divider"></li><li><a href="https://www.werkswelt.de/index.php?id=wohnungssuche">Housing Search</a></li><li><a href="https://www.werkswelt.de/index.php?id=tipps-fuer-erstsemester">Tips for First-Year Students</a></li><li><a href="https://www.werkswelt.de/index.php?id=privatzimmervermittlung">Housing Referral</a></li><li><a href="https://www.werkswelt.de/index.php?id=wohnen-bei-uns">Living in our halls of residence</a></li><li><a href="https://www.werkswelt.de/index.php?id=wohndauer">Occupancy</a></li><li><a href="https://www.werkswelt.de/index.php?id=infos-zur-sok-aufnahme">Info for SOK (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=umweltschutz">Environmental Protection</a></li><li><a href="https://www.werkswelt.de/index.php?id=wohnservice">WohnService (Contact) (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=online-bewerbung">Online application</a></li><li><a href="https://www.werkswelt.de/index.php?id=formulare">Forms</a></li><li><a href="https://www.werkswelt.de/index.php?id=bau-und-technik">Construction and Technology</a></li><li><a href="https://www.werkswelt.de/index.php?id=wohnen-ausschreibungen">Ausschreibungen</a></li></ul></li><li class="bafoeg dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">BAföG<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://www.werkswelt.de/index.php?id=bafoeg">BAföG</a></li><li class="divider"></li><li><a href="https://www.werkswelt.de/index.php?id=amt-fuer-ausbildungsfoerderung">Amt für Ausbildungsförderung</a></li><li><a href="https://www.werkswelt.de/index.php?id=studienabschlussdarlehen">Studienabschlussdarlehen</a></li></ul></li><li class="kultur dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Culture  (en)<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://www.werkswelt.de/index.php?id=kultur">Culture  (en)</a></li><li class="divider"></li><li><a href="https://www.werkswelt.de/index.php?id=sprachcafe">Language Café (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=musenhaeppchen">Musenhäppchen (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=thank-god-its-friday">Thank God It´s Friday (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=raumuberlassung">Rooms for rehearsals and events (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=kontakt-2">Contact (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=socialmedia">Our social media channels (en)</a></li></ul></li><li class="studieren-mit-kind dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Studying with a child (en)<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://www.werkswelt.de/index.php?id=studieren-mit-kind">Studying with a child (en)</a></li><li class="divider"></li><li><a href="https://www.werkswelt.de/index.php?id=kitas">Day Care Centers (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=tagescafe">Day Café (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=sozialberatung-4">Social Counseling (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=kinderteller">The Child Plate (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=betreuungszeiten">Change of Care Time (en)</a></li></ul></li><li class="service-beratung dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Service &#38; Counseling (en)<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://www.werkswelt.de/index.php?id=service-beratung">Service &#38; Counseling (en)</a></li><li class="divider"></li><li><a href="https://www.werkswelt.de/index.php?id=ppb">Psychological Counseling Service (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=kursangebot">Course Offer (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=sozialberatung">Sozialberatung (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=int">Open counseling hour for international students (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=einwilligung">General conditions &#38; informed agreement of the psychosocial counseling services (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=studierende-mit-behinderungen">Studierende mit Behinderungen</a></li><li><a href="https://www.werkswelt.de/index.php?id=rechtsberatung">Rechtsberatung (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=information-vor-ort">Information on Site (en)</a></li><li><a href="https://www.werkswelt.de/index.php?id=werksweiser">WERKsWeiser</a></li></ul></li><li class="ueber-uns dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">About us<b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://www.werkswelt.de/index.php?id=ueber-uns">About us</a></li><li class="divider"></li><li><a href="https://www.werkswelt.de/index.php?id=betreuungsbereich">Betreuungsbereich</a></li><li><a href="https://www.werkswelt.de/index.php?id=internationale-partnerschaften">Internationale Partnerschaften</a></li><li><a href="https://www.werkswelt.de/index.php?id=verbande">Verbände</a></li><li><a href="https://www.werkswelt.de/index.php?id=wir-unterstutzen">Wir unterstützen</a></li><li><a href="https://www.werkswelt.de/index.php?id=studentenwerkbeitrag">Studierendenwerkbeitrag</a></li><li><a href="https://www.werkswelt.de/index.php?id=satzungen-fur-die-steuerbegunstigten-betriebe-gewerblicher-art">Satzungen für die steuerbegünstigten Betriebe gewerblicher Art</a></li><li><a href="https://www.werkswelt.de/index.php?id=beitragssatzungen">Beitragssatzungen</a></li><li><a href="https://www.werkswelt.de/index.php?id=gleichstellung">Gleichstellung von Frauen und Männern</a></li><li><a href="https://www.werkswelt.de/index.php?id=schwerbehindertenvertretung">Schwerbehindertenvertretung</a></li><li><a href="https://www.werkswelt.de/index.php?id=datenschutzbeauftragter">Datenschutzbeauftragter</a></li><li><a href="https://www.werkswelt.de/index.php?id=hinweisgeberschutz">Hinweisgeberschutzsystem</a></li><li><a href="https://www.werkswelt.de/index.php?id=jahresbericht">Jahresbericht</a></li><li><a href="https://www.werkswelt.de/index.php?id=jobs">Stellenangebote</a></li></ul></li>        </ul>
+      </div>
+      
+    </div>
+  </div>
+  <!-- END Navigation -->
+  
+  <div class="visible-xs" align="left"> <br></div>
+  
+  
+  
+
+
+<!-- Script um auf dieser Template die Galerie "News" herholen zu KÖNNEN -->
+  
+ 
+  <link rel="stylesheet" href="https://www.werkswelt.de/plugins/i18n_gallery/css/nivo-slider-default.css"/>
+  <link rel="stylesheet" href="https://www.werkswelt.de/plugins/i18n_gallery/css/nivo-slider.css"/>
+  
+  <style>
+    /* The Nivo Slider styles (essential)*/
+    .nivoSlider { position:relative; width:100%; overflow: hidden; }
+    .nivoSlider img { position:absolute; top:0px; left:0px; max-width: none;}
+    .nivo-main-image { display: block !important; position: relative !important; width: 100% !important; }
+
+    /* If an image is wrapped in a link */
+    .nivoSlider a.nivo-imageLink {
+      position:absolute;
+      top:0px;
+      left:0px;
+      width:100%;
+      height:100%;
+      border:0;
+      padding:0;
+      margin:0;
+      z-index:6;
+      display:none;
+      background:white; 
+      filter:alpha(opacity=0); 
+      opacity:0;
+    }
+    /* The slices and boxes in the Slider */
+    .nivo-slice { display:block; position:absolute; z-index:5; height:100%; top:0; }
+    .nivo-box { display:block; position:absolute; z-index:5; overflow:hidden; }
+    .nivo-box img { display:block; }
+    
+    /* other fixes */
+    .nivo-directionNav a {z-index:9;}
+  </style>
+  <script type="text/javascript">
+  $(window).load(function() {
+    $('#nivoSlider-news').nivoSlider({
+          effect: 'sliceDown',               
+          slices: 15,    
+          boxCols: 8,                     
+          boxRows: 4,
+          
+          manualAdvance: false,
+          pauseTime: 11500,
+          pauseOnHover: false,             
+          animSpeed: 500,
+          
+          startSlide: 0,       
+          randomStart: false,
+          
+          directionNav: true, 
+          prevText: 'Prev', 
+          nextText: 'Next',
+          controlNav: false, 
+          controlNavThumbs: false,
+          
+          beforeChange: function() {          },
+          afterChange: function() {          },
+          slideshowEnd: function() {          },
+          lastSlide: function() {          },
+          afterLoad: function() {          }
+          })
+    });
+  </script>  
+
+
+<!-- Facebook-Hook für Kulturbereich-->
+
+	  
+	  
+	  
+	  
+<!-- Linke Spalte -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-3 sidebar">
+	  
+<!-- Die Sidebar-Komponenten werden geladen -->
+	   
+	   <!-- Stw-Logo -->
+
+ <div class="hidden-xs"><a href="?php get_site_url(); ?"><img src="data/uploads/studierendenwerk/test.png"  title="Logo des Studierendenwerks Erlangen-Nürnberg" class="img-responsive" style="PADDING-BOTTOM: 5px ; PADDING-RIGHT: 0px ; PADDING-TOP: 18px ; PADDING-LEFT: px;" ></img></a><p class="subheadline">Wir versorgen Studierende<br> in Mittelfranken, Eichstätt und Ingolstadt</p>
+      </div>
 
 
 
 
-Speiseplan <br><h4>Dienstag 24.11.2026</h4>Suppe<br>Potatosoup in stew pot <sup><b>[1,Mi,Sel]</b></sup> with bun <sup><b>[Wz,Ro,Ge]</b></sup><br>1,60&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 2,60&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     3,20&nbsp;€&nbsp; (Gäste)<br><img src="https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/V.png?v=2" class="infomax-food-icon V" width="68" height="60" alt="food-icon">&nbsp;&nbsp;<details closed=""><summary>N</summary>x</details><br> <br>Suppe<br>Potato soup <sup><b>[Mi,Wz,Sel]</b></sup> with bun <sup><b>[Wz,Ro,Ge]</b></sup><br>0,90&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 0,95&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     1,10&nbsp;€&nbsp; (Gäste)<br><img src="https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/V.png?v=2" class="infomax-food-icon V" width="68" height="60" alt="food-icon">&nbsp;&nbsp;<details closed=""><summary>N</summary>x</details><br> <br>Essen 1<br>Lasagne Bolognese <sup><b>[Wz,Mi]</b></sup><br>3,75&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 4,95&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     7,50&nbsp;€&nbsp; (Gäste)<br><img src="https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/R.png?v=2" class="infomax-food-icon R" width="60" height="62" alt="food-icon">&nbsp;&nbsp;<details closed=""><summary>N</summary>x</details><br> <br>Essen 2<br>crunchy beetroot buffer <sup><b>[Wz]</b></sup>
-with Apple-Mustard Dip <sup><b>[7,So,Sen]</b></sup><br>2,48&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 3,68&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     4,96&nbsp;€&nbsp; (Gäste)<br><img src="https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/veg.png?v=2" class="infomax-food-icon veg" height="60" alt="food-icon">&nbsp;&nbsp;<details closed=""><summary>N</summary>x</details><i>Optional: Reis</i><br><br> <br>Essen 3<br>Vegetable curry with diced soy chunks <sup><b>[Wz,So,Sel,Sen]</b></sup> and rice<br>2,46&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 4,57&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     4,92&nbsp;€&nbsp; (Gäste)<br><img src="https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/veg.png?v=2" class="infomax-food-icon veg" height="60" alt="food-icon">&nbsp;&nbsp;<details closed=""><summary>N</summary>x</details><br> <br>Essen 4<br>Corn nuggets <sup><b>[So,Hf]</b></sup> with barbecue sauce <sup><b>[5,13,Sel,Sen,Su]</b></sup> and Coleslaw <sup><b>[1,7,9,So,Sen,Su]</b></sup><br>4,83&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 6,03&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     9,66&nbsp;€&nbsp; (Gäste)<br><img src="https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/veg.png?v=2" class="infomax-food-icon veg" height="60" alt="food-icon">&nbsp;&nbsp;<details closed=""><summary>N</summary>x</details><br> <br>
+
+<div class="hidden-xs">
+<br>
+
+<div style="background-color:#ecf0f1; border-radius:4px; border: 0px; padding: 8px;">
+<strong>Quicklinks</strong>
+<br>
+<div class="dropdown">
+<a class="" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="cursor: pointer;">
+Speisepläne
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+     <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=lmpl">E-Langemarckplatz</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=sued">E- Südmensa</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="?id=cafeteria-kochstrasse">E-Kochstraße</font></a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="?id=cafeteria-chemikum-erlangen">E-Chemikum</font></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=isch">N- Insel Schütt</font></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=regb">N- Regensburger Straße</font></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=spau">N- St. Paul</font></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=mohm">N- Mensateria Ohm</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="?id=cafeteria-veilstr">N-Veilhofstraße</font></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=hohf">N- Hohfederstraße</font></a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="?id=cafeteria-langegasse">N- Lange Gasse</font></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=baer">N-Bärenschanzstraße</font></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=bingstrasse">N-Bingstraße</font></a></li>
+	<li role="presentation"><a role="menuitem" tabindex="-1" href="?id=moic">N-OIC</font></a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=eich">Eichstätt</a></li>    
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=ingo">Ingolstadt</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="?id=mtneuburg">Neuburg a. d. Donau</a></li>    
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=ansb">Ansbach</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?id=trie">Triesdorf</font></a></li>
+  </ul>
+</div>
+<div class="dropdown">
+<a class="" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true" style="cursor: pointer;">
+Projekte
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="?tag=Semesterticket">Ermäßigungsticket</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.werkswelt.de/index.php?id=nachhaltigkeit">Nachhaltigkeit</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="?tag=Neuburg">Campus Neuburg</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="?tag=Maximilianstraße">Maximilianstraße Nürnberg</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="?tag=Lutz21">Wohnheim Lutz21 Ingolstadt</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="?tag=Avenariusstraße">Wohnheim Avenariusstraße Nürnberg</a></li>
+  </ul>
+</div>
+<a href="https://www.werkswelt.de/index.php?id=werksblitz">WERKsBlitz</a><br>
+
+<a href="https://www.werkswelt.de/index.php?id=jobs">Stellenangebote</a><br>
+
+<div class="dropdown">
+<a class="" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true" style="cursor: pointer;">
+Ausschreibungen
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href=https://www.werkswelt.de/index.php?id=ausschreibungen>Hochschulgastronomie</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="https://www.werkswelt.de/index.php?id=wohnen-ausschreibungen">Wohnen, Bau und Technik</a></li>
+  </ul>
+</div>
+<a href="https://www.werkswelt.de/index.php?id=impressum">Impressum</a><br>
+</div>
+<hr>
+<strong>Aktuelles aus dem Bereich der Hochschulgastronomie:</strong> <br>
+
+  <a href="https://www.werkswelt.de/?post=ditkovich-bei-tgif-am-266-in-der-mensa-erlangen">DiTKOViCH bei TGiF am 27.11. in der Mensa Langemarckplatz</a><br />
+  <em>23.11.2026</em><br />
+
+  <a href="https://www.werkswelt.de/?post=thank-god-itas-friday-am-2011-mit-jamie-in-der-cafeteria-sud">Thank God it´s Friday am 20.11. mit Jamie in der Cafeteria Süd</a><br />
+  <em>17.11.2026</em><br />
+
+  <a href="https://www.werkswelt.de/?post=neues-grunwerk-produkt-heute-in-der-mensa-langemarckplatz">Neues GrünWerk-Produkt am 11. November in allen Mensen</a><br />
+  <em>08.11.2026</em><br />
+
+<hr>
+ 
+</div>
+
+																							
+	  
+      </div>
+	  
+	  
+	  
+	  
+	  
+<!-- Mittlere Spalte -->
+      <div class="col-md-7 col-sm-7">
+        
+		
+<!-- Page Title anzeigen (+ Ankerlink für den unsichtbaren Link im Header) -->
+       <a name="inhalt" style="text-decoration: none"> <h4 class="page-header">Mensa Ingolstadt (en)</h4></a>
+        
+              
+		
+<!-- Breadcrumbs laden, sofern die Seite nicht aktuell="index" ist -->
+<span class="hidden-xs">
+ 	 <ol class="breadcrumb">
+	  <a href="https://www.werkswelt.de/">Aktuell</a>
+	   &raquo; <span class="breadcrumb"><a href="https://www.werkswelt.de/index.php?id=gastronomie" title="Gastronomy (en)">Gastronomy (en)</a></span> &raquo; <span class="breadcrumb"><a href="https://www.werkswelt.de/index.php?id=mensen-cafeterien-cafebars" title="Refectories, Cafeterias &#38; Cafebars (en)">Refectories, Cafeterias &#38; Cafebars (en)</a></span> &raquo; <span class="breadcrumb"><a href="https://www.werkswelt.de/index.php?id=ingo" title="Mensa Ingolstadt (en)">Mensa Ingolstadt (en)</a></span>	 	</ol>
+					
+	  </span>	
+		
+		
+<!-- Die Seite, die im Newsmanager als News-Seite festgelegt ist, holt sich die Gallery "News". Beachte: nm_is_home bewirkt, dass sie nur auf Seite 1, nicht auf 2,3, etc. gezeigt wird-->
+ 				
+		
+		
+<!-- Seiten Inhalt laden! Page Content -->
+       <p>Esplanade 10, 85049 Ingolstadt</p>
+
+<div class="visible-xs"><a href="https://www.werkswelt.de/index.php?id=ingo&amp;setlang=de">deutsch</a> | <a href="https://www.werkswelt.de/index.php?id=ingo&amp;setlang=en">english</a></div>
+<div class="visible-xs"><p>ANZEIGE:</p>
+
+<p><a href="https://www.werkswelt.de/bafoeg" target="_blank"><img alt="" class="img-responsive" src="https://www.werkswelt.de/data/uploads/bafoeg/banner/bafoeg-download-beitragserhoehung-header.jpg" /></a></p>
+</div>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Speiseplan</title>
+ 
+  <!--CSS-->
+  <link href="localhost/theme/PureBootstrap/assets/css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+<div style="background-color:#ecf0f1;border-radius: 4px 4px 0px 0px; padding: 8px;"">
+
+
+
+
+Speiseplan <br><h4>Dienstag 24.11.2026</h4>Suppe</br>Potatosoup in stew pot <sup><b>[1,Mi,Sel]</b></sup> with bun <sup><b>[Wz,Ro,Ge]</b></sup></br>1,60&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 2,60&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     3,20&nbsp;€&nbsp; (Gäste)</br><img src='https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/V.png?v=2' class='infomax-food-icon V' width='68' height='60' alt='food-icon'>&nbsp;&nbsp;<details closed><summary><strong>Nährwertangaben pro Portion/Nutritional values per portion (click here):</strong></summary>Energie/Energy: 1.252&nbsp;kJ&nbsp;/&nbsp;299&nbsp;kcal&nbsp;&nbsp;&vert;&nbsp;&nbsp;Fett/Fat: 6,4&nbsp;g&nbsp;&ndash;&nbsp;davon gesättigte Fettsäuren/saturated fatty acids: 3,2&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Kohlenhydrate/Carbohydrates: 50,1&nbsp;g&nbsp;&ndash;&nbsp;davon Zucker/sugar: 4,8&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Ballaststoffe/Dietary fibre: 2,7&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Eiweiss/Protein: 8,1&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Salz/Salt: 4,1&nbsp;g&nbsp;</details></br> </br>Suppe</br>Potato soup <sup><b>[Mi,Wz,Sel]</b></sup> with bun <sup><b>[Wz,Ro,Ge]</b></sup></br>0,90&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 0,95&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     1,10&nbsp;€&nbsp; (Gäste)</br><img src='https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/V.png?v=2' class='infomax-food-icon V' width='68' height='60' alt='food-icon'>&nbsp;&nbsp;<details closed><summary><strong>Nährwertangaben pro Portion/Nutritional values per portion (click here):</strong></summary>Energie/Energy: 570&nbsp;kJ&nbsp;/&nbsp;136&nbsp;kcal&nbsp;&nbsp;&vert;&nbsp;&nbsp;Fett/Fat: 4,9&nbsp;g&nbsp;&ndash;&nbsp;davon gesättigte Fettsäuren/saturated fatty acids: 2,5&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Kohlenhydrate/Carbohydrates: 18,6&nbsp;g&nbsp;&ndash;&nbsp;davon Zucker/sugar: 3,7&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Ballaststoffe/Dietary fibre: 0,6&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Eiweiss/Protein: 3,1&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Salz/Salt: 3,3&nbsp;g&nbsp;</details></br> </br>Essen 1</br>Pasta  Bolognese <sup><b>[Wz,Mi]</b></sup></br>3,75&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 4,95&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     7,50&nbsp;€&nbsp; (Gäste)</br><img src='https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/R.png?v=2' class='infomax-food-icon R' width='60' height='62' alt='food-icon'>&nbsp;&nbsp;<details closed><summary><strong>Nährwertangaben pro Portion/Nutritional values per portion (click here):</strong></summary>Energie/Energy: 3.741&nbsp;kJ&nbsp;/&nbsp;894&nbsp;kcal&nbsp;&nbsp;&vert;&nbsp;&nbsp;Fett/Fat: 45,7&nbsp;g&nbsp;&ndash;&nbsp;davon gesättigte Fettsäuren/saturated fatty acids: 14,3&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Kohlenhydrate/Carbohydrates: 74,1&nbsp;g&nbsp;&ndash;&nbsp;davon Zucker/sugar: 12,4&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Ballaststoffe/Dietary fibre: 0,3&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Eiweiss/Protein: 42,6&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Salz/Salt: 0,7&nbsp;g&nbsp;</details></br> </br>Essen 2</br>crunchy beetroot buffer <sup><b>[Wz]</b></sup>
+with Apple-Mustard Dip <sup><b>[7,So,Sen]</b></sup></br>2,48&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 3,68&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     4,96&nbsp;€&nbsp; (Gäste)</br><img src='https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/veg.png?v=2' class='infomax-food-icon veg' height='60' alt='food-icon'>&nbsp;&nbsp;<details closed><summary><strong>Nährwertangaben pro Portion/Nutritional values per portion (click here):</strong></summary>Energie/Energy: 0&nbsp;kJ&nbsp;/&nbsp;0&nbsp;kcal&nbsp;&nbsp;&vert;&nbsp;&nbsp;Fett/Fat: 0,0&nbsp;g&nbsp;&ndash;&nbsp;davon gesättigte Fettsäuren/saturated fatty acids: 0,0&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Kohlenhydrate/Carbohydrates: 0,0&nbsp;g&nbsp;&ndash;&nbsp;davon Zucker/sugar: 0,0&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Ballaststoffe/Dietary fibre: 0,0&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Eiweiss/Protein: 0,0&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Salz/Salt: 0,0&nbsp;g&nbsp;</details><i>Optional: Reis</i></br></br> </br>Essen 3</br>Vegetable curry with diced soy chunks <sup><b>[Wz,So,Sel,Sen]</b></sup> and rice</br>2,46&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 4,57&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     4,92&nbsp;€&nbsp; (Gäste)</br><img src='https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/veg.png?v=2' class='infomax-food-icon veg' height='60' alt='food-icon'>&nbsp;&nbsp;<details closed><summary><strong>Nährwertangaben pro Portion/Nutritional values per portion (click here):</strong></summary>Energie/Energy: 2.156&nbsp;kJ&nbsp;/&nbsp;515&nbsp;kcal&nbsp;&nbsp;&vert;&nbsp;&nbsp;Fett/Fat: 16,9&nbsp;g&nbsp;&ndash;&nbsp;davon gesättigte Fettsäuren/saturated fatty acids: 6,4&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Kohlenhydrate/Carbohydrates: 74,3&nbsp;g&nbsp;&ndash;&nbsp;davon Zucker/sugar: 8,3&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Ballaststoffe/Dietary fibre: 1,1&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Eiweiss/Protein: 13,0&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Salz/Salt: 3,5&nbsp;g&nbsp;</details></br> </br>Essen 4</br>Corn nuggets <sup><b>[So,Hf]</b></sup> with barbecue sauce <sup><b>[5,13,Sel,Sen,Su]</b></sup> and Coleslaw <sup><b>[1,7,9,So,Sen,Su]</b></sup></br>4,83&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 6,03&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     9,66&nbsp;€&nbsp; (Gäste)</br><img src='https://www.max-manager.de/daten-extern/sw-erlangen-nuernberg/icons/veg.png?v=2' class='infomax-food-icon veg' height='60' alt='food-icon'>&nbsp;&nbsp;<details closed><summary><strong>Nährwertangaben pro Portion/Nutritional values per portion (click here):</strong></summary>Energie/Energy: 2.824&nbsp;kJ&nbsp;/&nbsp;675&nbsp;kcal&nbsp;&nbsp;&vert;&nbsp;&nbsp;Fett/Fat: 39,6&nbsp;g&nbsp;&ndash;&nbsp;davon gesättigte Fettsäuren/saturated fatty acids: 5,7&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Kohlenhydrate/Carbohydrates: 61,7&nbsp;g&nbsp;&ndash;&nbsp;davon Zucker/sugar: 21,4&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Ballaststoffe/Dietary fibre: 3,0&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Eiweiss/Protein: 14,8&nbsp;g&nbsp;&nbsp;&vert;&nbsp;&nbsp;Salz/Salt: 3,6&nbsp;g&nbsp;</details></br> </br>
 <form action="" method="post">
-<input type="submit" name="mybutton" class="btn btn-default btn-sm btn-speise" value="rückwärts" disabled="disabled">
+<input type="submit" name="mybutton" class="btn btn-default btn-sm btn-speise" value="rückwärts" style='text-decoration: none; colo' disabled='disabled'>
 <button class="btn btn-default btn-sm btn" disabled="disabled"> | 24.11.2026 |</button>
-<input type="submit" name="mybutton" class="btn btn-default btn-sm btn-speise" value="vorwärts">
+<input type="submit" name="mybutton" class="btn btn-default btn-sm btn-speise" value="vorwärts" >
 </form>
 
 
 </div>
+</body>
+</html><div class="kasten">
+	<ol class="list-group" style="margin-bottom: 0px">
+		<li class="zusatzstoffe"><font line-height="10%" size="0,5"><img src="data/uploads/gastronomie/zutatenpics/schwein.png" class="gs_image" height="20" width="20" alt="S">&nbsp;=&nbsp;Schwein | <img src="data/uploads/gastronomie/zutatenpics/rind.png" class="gs_image" height="20" width="20" alt="R">&nbsp;=&nbsp;Rind |<img src="data/uploads/gastronomie/zutatenpics/gefluegel.png" class="gs_image" height="20" width="20" alt="G"> &nbsp;=&nbsp;Gefl&uuml;gel | <img src="data/uploads/gastronomie/zutatenpics/lamm.png" class="gs_image" height="20" width="20" alt="L">&nbsp;=&nbsp;Lamm | <img src="data/uploads/gastronomie/zutatenpics/wild.png" class="gs_image" height="20" width="20" alt="W">&nbsp;=&nbsp; Wild | <img src="data/uploads/gastronomie/zutatenpics/fische.png" class="gs_image" height="20" width="20" alt="F"> &nbsp;=&nbsp;Fisch | <img src="data/uploads/gastronomie/zutatenpics/vegetarisch.png" class="gs_image" height="20" width="20" alt="A"> &nbsp;=&nbsp;Vegetarisch | <img src="data/uploads/gastronomie/zutatenpics/gruenwerk1.png" class="gs_image" height="15" width="82" alt="Vegan">&nbsp;=&nbsp;Vegan   | <img src="data/uploads/gastronomie/zutatenpics/co2.png" class="gs_image" height="20" width="10" alt="CO2 Fussabdruck">&nbsp;=&nbsp; Klimafreundliches Gericht  | <img src="data/uploads/gastronomie/zutatenpics/bio.png" class="gs_image" height="20" width="20" alt="Bio">&nbsp;=&nbsp;aus biologischem Anbau DE-&Ouml;KO-006 | <img src="data/uploads/gastronomie/zutatenpics/msc-fisch.png" class="gs_image" height="20" width="20" alt="MSC">&nbsp;=&nbsp;zertifizierte nachhaltige Fischerei - MSC - C - 51840 | <img src="data/uploads/gastronomie/zutatenpics/17821_hue_tierwohl_siegel_ohne-kordel_d_f_100.jpg" class="gs_image" height="20" width="20" alt="Tierwohl">&nbsp;=&nbsp;Tierwohl | <img src="data/uploads/gastronomie/zutatenpics/alkohol.png" class="gs_image" height="20" width="20" alt="F"> &nbsp;=&nbsp;mit Alkohol | <img src="data/uploads/gastronomie/zutatenpics/gf.png" class="gs_image" height="20" width="20" alt="Glutenfrei">&nbsp;=&nbsp;Glutenfrei<br>
+1&nbsp;mit Farbstoff | 2&nbsp;mit Coffein | 4&nbsp;mit Konservierungsstoff | 5&nbsp;mit S&uuml;&szlig;ungsmittel | 7&nbsp;mit Antioxidationsmittel | 8&nbsp;mit Geschmacksverst&auml;rker | 9&nbsp;geschwefelt | 10&nbsp;geschw&auml;rzt | 12&nbsp;mit Phosphat | 13&nbsp;enth&auml;lt eine Phenylalaninquelle | 30&nbsp;mit Fettglasur <br>
+Allergene: Wz = Weizen(Dinkel,Kamut) | Ro = Roggen | Ge = Gerste | Hf = Hafer | Kr = Krebstiere | Ei = Eier | Er = Erdn&uuml;sse | So = Sojabohnen | Mi = Milch/Laktose | Man = Mandeln | Hs = Haseln&uuml;sse | Wa = Waln&uuml;sse | Ka = Kaschu(Cashew)n&uuml;sse | Pe = Pekann&uuml;sse | Pa = Paran&uuml;sse | Pi = Schalenfr&uuml;chte Pistazien | Mac = Macadamian&uuml;sse | Sel = Sellerie | Sen = Senf | Ses = Sesam | Su = Schwefeldioxid u. Sulfite | Lu = Lupinen | We = Weichtiere<br />
+			Spuren von Allergenen werden nicht gekennzeichnet. Die Nährwertangaben beziehen sich auf eine durchschnittliche Portion. Für die Richtigkeit der Nährwerte übernehmen wir keine Gewähr. Bei Fragen k&ouml;nnen Sie sich gerne an unsere Mitarbeiter*Innen wenden</font></li>
+	</ol>
 </div>
-</div></div>
-</body></html>
+
+<p>&nbsp;</p>
+
+<table border="1" cellpadding="1" cellspacing="1" class="oeffnungszeiten">
+	<tbody>
+		<tr>
+			<td><strong>Opening hours</strong></td>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td>Mon - Fri:</td>
+			<td>11.00 am - 2.30 pm</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Here is a <a href="https://www.werkswelt.de/index.php?id=cafeteria-ingolstadt">Cafeteria</a>.<br />
+	&nbsp;</p>
+
+<ul>
+	<li>Seating capacity: 315</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><strong><span style=" font-size:16px;">&nbsp;<span style="line-height: 1.4285;">&nbsp;</span><img alt="" src="https://www.werkswelt.de/data/uploads/newsmanager/2024/spengler.png" style="width: 128px; height: 150px;" /></span></strong></p>
+
+<p><strong><span style=" font-size:16px;"><span style="line-height: 100%; font-size: 11px;">Refectory Manager Thomas Spengler</span></span></strong></p>
+
+<p>&quot;Dear guests,</p>
+
+<p>As a native of Ingolstadt, I&#39;m back home after a few detours via Tegernsee, Triesdorf, Dresden and Augsburg. When I&#39;m not in the kitchen, I&#39;m out on the racetrack in my old Golf or working in the workshop. I&#39;m always grateful for constructive feedback and suggestions - feel free to get in touch with me or my colleagues!&quot;</p>
+
+  <div class="slider-wrapper theme-default">
+    <div class="ribbon"></div>
+      <div id="nivoSlider-hg-mensa-ingolstadt" class="nivoSlider">
+  
+      <img src="https://www.werkswelt.de/data/uploads/gastronomie/slideshows/Mensa-Ingolstadt-005.jpg" alt="" title=""  
+            />
+  
+      <img src="https://www.werkswelt.de/data/uploads/gastronomie/slideshows/Mensa-Ingolstadt-002.jpg" alt="" title=""  
+            />
+    </div>
+  </div>
+
+       </div>
+
+
+	   
+	   
+<!-- Rechte Spalte -->
+ <div class="col-md-2 col-sm-2 hidden-xs">	   
+
+ 
+<!-- Get the Sidebar right -->
+  
+	   <br> 
+<div align="left" style="padding-top:17px"><a href="https://www.werkswelt.de/index.php?id=ingo&amp;setlang=de">deutsch</a> | <a href="https://www.werkswelt.de/index.php?id=ingo&amp;setlang=en">english</a></div>
+<!-- Random Content Sidebar allgemein: Werbung sidebar right --><p>ANZEIGE:</p>
+
+<p><a href="https://meinabo.vag.de/abo/new.aspx?produkt=16230706_1" target="_blank"><img alt="" class="img-responsive" href="https://www.werkswelt.de/index.php?id=mensen-cafeterien-cafebars" src="https://www.werkswelt.de/data/uploads/anzeigen/vgn-d-ticket-ermaessigt-wise2627-400x400px-de-en.jpg" /></a></p>
+<!-- Random Content Sidebar standortspezifisch: ingo --><p>ANZEIGE:</p>
+
+<p><a href="https://werkswelt.de/angebot" target="_blank"><img a="" alt="Unser Angebot für Sie" class="img-responsive" src="https://www.werkswelt.de/data/uploads/newsmanager/2021/banner_hochkant_webseite_angebot_2021.png" /></a></p>
+
+
+<br><br>
+
+      </div>
+	  
+	  
+	  
+    </div>
+
+
+	</div>
+	
+	
+	
+	
+<!-- DIVERSES -->
+	
+<!-- Scroll to top Skript: -->
+ <p><a class="back-to-top" href="#">Back to Top</a></p>
+<script>
+jQuery(document).ready(function() {
+    var offset = 220;
+    var duration = 500;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.back-to-top').fadeIn(duration);
+        } else {
+            jQuery('.back-to-top').fadeOut(duration);
+        }
+    });
+    
+    jQuery('.back-to-top').click(function(event) {
+        event.preventDefault();
+        jQuery('html, body').animate({scrollTop: 0}, duration);
+        return false;
+    })
+});
+</script>
+
+
+
+
+
+  <footer>
+    <div class="container">
+      <hr>
+      <div class="row">
+        <div class="col-lg-12" text align="right">
+          
+          <p><font size="2"><a href="?id=impressum" title="Impressum">Impressum</a> | <a href="?id=impressum#datenschutz" title="Datenschutzerkl&auml;rung">Datenschutzerkl&auml;rung</a></font></p>
+          
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Include the JavaScripts -->
+
+  <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> --><!-- Bootstrap Core -->
+  <script src="https://www.werkswelt.de/theme/PureBootstrap/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  
+  <script src="https://www.werkswelt.de/theme/PureBootstrap/assets/js/retina.min.js"></script><!-- RetinaJS by Imulus -->
+  <script src="https://www.werkswelt.de/theme/PureBootstrap/assets/js/bootstrapValidator.min.js"></script><!-- jQuery Validation -->
+    
+
+  
+  
+  
+</body>
+
+</html>
+
+
+
+

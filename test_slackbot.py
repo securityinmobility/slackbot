@@ -11,7 +11,7 @@ import werkswelt
 from slackbot import TIMEZONE, format_date_de, gql_GetPlan, meals_for_day
 
 DAY = date(2026, 11, 13)
-WERKSWELT_DAY = date(2026, 11, 24)  # date of the werkswelt fixtures in test_data/
+WERKSWELT_DAY = date(2026, 11, 24)  # test_data/werkswelt_ingo_*.html: raw server responses of that day (14:30)
 
 
 def fixture(lang):
@@ -117,7 +117,7 @@ class TestWerkswelt(unittest.TestCase):
         self.assertEqual([m["name"] for m in meals], [
             "Kartoffelsuppe in der Eintopfschale mit Brötchen",
             "Kartoffelsuppe",
-            "Lasagne Bolognese",
+            "Nudeln Bolognese",
             "Rote Bete Puffer mit Apfel-Senf Dip",
             "Gemüsecurry mit Sojawürfeln und Reis",
             "Mais Nuggets mit Barbecue Dip und Coleslaw",
@@ -130,7 +130,7 @@ class TestWerkswelt(unittest.TestCase):
             meals = werkswelt.mensa_meals(WERKSWELT_DAY)
         self.assertEqual(meals[4]["name"], {"de": "Gemüsecurry mit Sojawürfeln und Reis",
                                             "en": "Vegetable curry with diced soy chunks and rice"})
-        self.assertEqual(meals[2]["name"], {"de": "Lasagne Bolognese", "en": "Lasagne Bolognese"})
+        self.assertEqual(meals[2]["name"], {"de": "Nudeln Bolognese", "en": "Pasta Bolognese"})
         self.assertEqual(meals[3]["prices"], {"student": 2.48, "employee": 3.68})
 
     def test_other_day_raises(self):
@@ -153,8 +153,10 @@ class TestWerkswelt(unittest.TestCase):
     @unittest.skipUnless(os.environ.get("RUN_LIVE_API_TESTS") == "1", "set RUN_LIVE_API_TESTS=1 to fetch the live werkswelt page")
     def test_live_page(self):
         for lang in ("de", "en"):
-            _, meals = werkswelt.parse_menu(werkswelt._fetch(lang))
-            self.assertIsInstance(meals, list)
+            page = werkswelt._fetch(lang)
+            _, meals = werkswelt.parse_menu(page)
+            if "(Stud.)" in page:  # the page lists prices, so the parser must find meals
+                self.assertTrue(meals, f"{lang}: prices on the page but no meals parsed")
 
 
 class TestGraphQL(unittest.TestCase):
