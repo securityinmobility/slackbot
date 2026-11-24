@@ -1,6 +1,6 @@
 """Today's Mensa Ingolstadt menu from werkswelt.de, the Studierendenwerk's own page, in German and English.
 
-The page has no feed: one HTML page per language, all meals in a single <div>, separated by <br>.
+The page has no feed: one HTML page per language, all meals in a single <div>, separated by </br>.
 """
 import html
 import re
@@ -12,7 +12,8 @@ import requests
 URL = "https://www.werkswelt.de/index.php"
 LOCATION_ID = "ingo"
 
-_BR = r"<br\s*/?>"
+# The server sends mostly "</br>" (browsers turn it into "<br>"), plus some "<br>" and "<br />".
+_BR = r"</?br\s*/?>"
 # "Speiseplan <br><h4>Dienstag 24.11.2026</h4> ...meals... <form" (the form holds the day navigation buttons)
 _MENU = re.compile(r"Speiseplan\s*" + _BR + r"\s*<h4[^>]*>[^<]*?(\d{2}\.\d{2}\.\d{4})\s*</h4>(.*?)(?:<form|</div>)", re.S | re.I)
 _PRICES = re.compile(r"(\d+,\d{2})\D*?\(Stud\.\).*?(\d+,\d{2})\D*?\(Bed\.\)", re.S)

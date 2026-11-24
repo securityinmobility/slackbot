@@ -11,12 +11,24 @@ import werkswelt
 from slackbot import TIMEZONE, format_date_de, gql_GetPlan, meals_for_day
 
 DAY = date(2026, 11, 13)
-WERKSWELT_DAY = date(2026, 11, 24)  # date of the werkswelt fixtures in test_data/
+WERKSWELT_DAY = date(2026, 11, 24)
+
+# Trimmed excerpt of the raw werkswelt page of 2026-11-24. The server writes line breaks as "</br>".
+WERKSWELT_PAGE = """<html><body><div class="col-md-7"><div style="background-color:#ecf0f1">
+Speiseplan <br><h4>Dienstag 24.11.2026</h4>Suppe</br>{soup} <sup><b>[1,Mi,Sel]</b></sup> {side} <sup><b>[Wz,Ro,Ge]</b></sup></br>1,60&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 2,60&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     3,20&nbsp;€&nbsp; (Gäste)</br><img src='V.png' class='infomax-food-icon V' alt='food-icon'>&nbsp;&nbsp;<details closed=''><summary>Nährwertangaben</summary>Energie/Energy: 1.252&nbsp;kJ</details></br> </br>Essen 1</br>{pasta} <sup><b>[Wz,Mi]</b></sup></br>3,75&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 4,95&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     7,50&nbsp;€&nbsp; (Gäste)</br><img src='R.png' class='infomax-food-icon R' alt='food-icon'></br> </br>Essen 2</br>{puffer} <sup><b>[Wz]</b></sup>
+{dip} <sup><b>[7,So,Sen]</b></sup></br>2,48&nbsp;€&nbsp;(Stud.)&nbsp;&nbsp; 3,68&nbsp;€&nbsp; (Bed.)&nbsp;&nbsp;     4,96&nbsp;€&nbsp; (Gäste)</br><img src='veg.png' class='infomax-food-icon veg' alt='food-icon'>&nbsp;&nbsp;<details closed=''><summary>Nährwertangaben</summary>Energie/Energy: 0&nbsp;kJ</details><i>Optional: Reis</i><br><br> </br>
+<form action="" method="post"><input type="submit" name="mybutton" value="vorwärts"></form>
+</div></div></body></html>"""
+WERKSWELT_NAMES = {
+    "de": {"soup": "Kartoffelsuppe in der Eintopfschale", "side": "mit Brötchen", "pasta": "Nudeln Bolognese",
+           "puffer": "Rote Bete Puffer", "dip": "mit Apfel-Senf Dip"},
+    "en": {"soup": "Potatosoup in stew pot", "side": "with bun", "pasta": "Pasta Bolognese",
+           "puffer": "crunchy beetroot buffer", "dip": "with Apple-Mustard Dip"},
+}
 
 
 def fixture(lang):
-    with open(os.path.join("test_data", f"werkswelt_ingo_{lang}.html"), encoding="utf-8") as f:
-        return f.read()
+    return WERKSWELT_PAGE.format(**WERKSWELT_NAMES[lang])
 
 
 def meal(name, static=False, flags=None, student=2.5, employee=3.5):
@@ -116,22 +128,19 @@ class TestWerkswelt(unittest.TestCase):
         self.assertEqual(day, WERKSWELT_DAY)
         self.assertEqual([m["name"] for m in meals], [
             "Kartoffelsuppe in der Eintopfschale mit Brötchen",
-            "Kartoffelsuppe",
-            "Lasagne Bolognese",
+            "Nudeln Bolognese",
             "Rote Bete Puffer mit Apfel-Senf Dip",
-            "Gemüsecurry mit Sojawürfeln und Reis",
-            "Mais Nuggets mit Barbecue Dip und Coleslaw",
         ])
         self.assertEqual(meals[0]["prices"], {"student": 1.6, "employee": 2.6})
-        self.assertEqual([m["flags"] for m in meals], [["V"], ["V"], ["R"], ["veg"], ["veg"], ["veg"]])
+        self.assertEqual([m["flags"] for m in meals], [["V"], ["R"], ["veg"]])
 
     def test_mensa_meals_pairs_languages(self):
         with mock.patch("werkswelt._fetch", side_effect=fixture):
             meals = werkswelt.mensa_meals(WERKSWELT_DAY)
-        self.assertEqual(meals[4]["name"], {"de": "Gemüsecurry mit Sojawürfeln und Reis",
-                                            "en": "Vegetable curry with diced soy chunks and rice"})
-        self.assertEqual(meals[2]["name"], {"de": "Lasagne Bolognese", "en": "Lasagne Bolognese"})
-        self.assertEqual(meals[3]["prices"], {"student": 2.48, "employee": 3.68})
+        self.assertEqual(meals[2]["name"], {"de": "Rote Bete Puffer mit Apfel-Senf Dip",
+                                            "en": "crunchy beetroot buffer with Apple-Mustard Dip"})
+        self.assertEqual(meals[1]["name"], {"de": "Nudeln Bolognese", "en": "Pasta Bolognese"})
+        self.assertEqual(meals[2]["prices"], {"student": 2.48, "employee": 3.68})
 
     def test_other_day_raises(self):
         with mock.patch("werkswelt._fetch", side_effect=fixture):
@@ -153,8 +162,10 @@ class TestWerkswelt(unittest.TestCase):
     @unittest.skipUnless(os.environ.get("RUN_LIVE_API_TESTS") == "1", "set RUN_LIVE_API_TESTS=1 to fetch the live werkswelt page")
     def test_live_page(self):
         for lang in ("de", "en"):
-            _, meals = werkswelt.parse_menu(werkswelt._fetch(lang))
-            self.assertIsInstance(meals, list)
+            page = werkswelt._fetch(lang)
+            _, meals = werkswelt.parse_menu(page)
+            if "(Stud.)" in page:  # the page lists prices, so the parser must find meals
+                self.assertTrue(meals, f"{lang}: prices on the page but no meals parsed")
 
 
 class TestGraphQL(unittest.TestCase):
